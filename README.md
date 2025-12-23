@@ -111,7 +111,7 @@ let f = 1/t_delay
 - Better switching characteristics due to FinFET electrostatic control
 
 ### Results
-![Inverter_results](Images/Inverter_results.png)
+![Inverter_results](Images/Finfet_inverter.png)
 ---
 
 ## Bandgap Reference Circuit
