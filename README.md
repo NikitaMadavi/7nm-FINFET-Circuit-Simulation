@@ -38,6 +38,7 @@ various electrical and performance parameters.
 
 ### Parameters Analyzed
 - Voltage Transfer Characteristics (VTC)
+  ![Inverter VTC](/images/Inverter_VTC.png)
 - Drain current (Id)
 - Power consumption
 - Propagation delay
