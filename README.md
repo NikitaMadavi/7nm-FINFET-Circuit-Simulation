@@ -315,10 +315,40 @@ pre_osdi /home/vsduser/FINFET_NIKITA/asap_7nm_Xschem/bsimcmg.osdi
 - Studied variation of output voltage with:
   - Supply voltage (VDD)
   - Temperature
+```
+.dc temp -45 150 5
+.control
+run
+plot v(Vref)
+```
+![Vref](Images/Vref(Vout).png)
+
+```
+plot v(VCTAT)
+```
+![VCTAT](Images/VCTAT.png)
+
+```
+plot v(VPTAT)
+```
+![VPTAT](Images/VPTAT.png)
+
+```
+plot v(Vref)-v(VCTAT)
+```
+![Vref-VCTAT](Images/Vref_Vctat.png)
+
+```
+let temp_coeff = deriv(v(Vref))/1.24
+```
+![Temperature Coefficient](Images/Temp_coeff_R448.png)
 
 ### Transient Analysis
 - Startup behavior of the bandgap reference was analyzed
 - Startup time and stability were observed using transient simulations
+![Startup Time](Images/Startup_time_125C.png)
+![Line Regulation](Images/Line_reg_125c.png)
+
 
 ### Performance Metrics Recorded
 - Reference voltage stability
@@ -326,6 +356,7 @@ pre_osdi /home/vsduser/FINFET_NIKITA/asap_7nm_Xschem/bsimcmg.osdi
 - Temperature dependence
 - Startup behavior
 
+### Bandgap Results
 ---
 ## Credits
 This work is based on an open-source FinFET SPICE model and inverter deck
