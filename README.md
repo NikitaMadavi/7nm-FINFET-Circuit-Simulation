@@ -111,7 +111,7 @@ let f = 1/t_delay
 - Better switching characteristics due to FinFET electrostatic control
 
 ### Results
-
+![Inverter_results](Images/Inverter_results.png)
 ---
 
 ## Bandgap Reference Circuit
@@ -124,7 +124,7 @@ in the biasing network was modified.
 
 ### Unique Design Choice
 - Bias resistor value set to **448 Ω**
-- Value derived from the **ASCII representation** to ensure design uniqueness
+- Value derived from the **ASCII representation of NIKITA** to ensure design uniqueness
 ![BGR_schematic](Images/BandGap_Ref_schematic.png)
 
 ---
@@ -345,8 +345,31 @@ let temp_coeff = deriv(v(Vref))/1.24
 
 ### Transient Analysis
 - Startup behavior of the bandgap reference was analyzed
-- Startup time and stability were observed using transient simulations
+- We observe that the startup time is around 0.06 ns for 1V power supply at 125C
+Spice deck for Startup time
+```
+.tran 1n 100n uic
+.temp 125
+.control
+run
+
+meas tran vref_final FIND v(vref) AT=90n
+meas tran tstartup WHEN v(vref)=0.99*vref_final RISE=1
+.endc
+```
 ![Startup Time](Images/Startup_time_125C.png)
+
+Spice Deck for Line regulation
+```
+.dc V1 0.9 1.1 0.05
+
+* Measure Vref at endpoints
+.meas dc VREF_MAX MAX v(Vref) 
+.meas dc VREF_MIN MIN v(vref) 
+
+* Line regulation (mV/V)
+.meas dc LINE_REG PARAM='(VREF_MAX - VREF_MIN)/(0.9 - 0.7)*1e3'
+```
 ![Line Regulation](Images/Line_reg_125c.png)
 
 
@@ -357,6 +380,7 @@ let temp_coeff = deriv(v(Vref))/1.24
 - Startup behavior
 
 ### Bandgap Results
+![Bandgap_results](Images/Bandgap_results.png)
 ---
 ## Credits
 This work is based on an open-source FinFET SPICE model and inverter deck
