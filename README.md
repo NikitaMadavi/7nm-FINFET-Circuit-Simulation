@@ -129,6 +129,9 @@ in the biasing network was modified.
 
 ---
 ### Spice Deck for Bandgap Reference circuit
+Note: Only representative ngspice control commands are shown.
+Complete circuit netlists and models are excluded.
+
 ```
 ** sch_path:  /home/vsduser/FINFET_NIKITA/asap_7nm_Xschem/BGR_nsm.sch
 **.subckt bandgap_ref
@@ -311,10 +314,13 @@ pre_osdi /home/vsduser/FINFET_NIKITA/asap_7nm_Xschem/bsimcmg.osdi
 ```
 
 ### DC Analysis
+Note: Below plots are shown for VDD as 1V at 125C
+
 - Performed DC sweep to observe reference voltage (Vref)
 - Studied variation of output voltage with:
   - Supply voltage (VDD)
   - Temperature
+
 ```
 .dc temp -45 150 5
 .control
@@ -346,23 +352,16 @@ let temp_coeff = deriv(v(Vref))/1.24
 ### Transient Analysis
 - Startup behavior of the bandgap reference was analyzed
 - We observe that the startup time is around 0.06 ns for 1V power supply at 125C
+  
 Spice deck for Startup time
 ```
-.tran 1n 100n uic
-.temp 125
-.control
-run
-
 meas tran vref_final FIND v(vref) AT=90n
 meas tran tstartup WHEN v(vref)=0.99*vref_final RISE=1
-.endc
 ```
 ![Startup Time](Images/Startup_time_125C.png)
 
 Spice Deck for Line regulation
 ```
-.dc V1 0.9 1.1 0.05
-
 * Measure Vref at endpoints
 .meas dc VREF_MAX MAX v(Vref) 
 .meas dc VREF_MIN MIN v(vref) 
@@ -370,7 +369,7 @@ Spice Deck for Line regulation
 * Line regulation (mV/V)
 .meas dc LINE_REG PARAM='(VREF_MAX - VREF_MIN)/(0.9 - 0.7)*1e3'
 ```
-![Line Regulation](Images/Line_reg_125c.png)
+![Line Regulation](Images/Line_reg.png)
 
 
 ### Performance Metrics Recorded
@@ -382,10 +381,15 @@ Spice Deck for Line regulation
 ### Bandgap Results
 ![Bandgap_results](Images/Bandgap_results.png)
 ---
-## Credits
-This work is based on an open-source FinFET SPICE model and inverter deck
-sourced from GitHub.
+## Credits and Acknowledgements
 
-Full credit is given to the original contributors:
--ahdvakd
--ygfagj
+This project was developed as part of a technical workshop
+conducted by VLSI System Design (VSD).
+
+The lecture content and base repositories were provided by:
+- Kunal Ghosh (VLSI System Design)
+- R. S. Madhuri
+
+The author performed independent simulations, parameter
+modifications, and analysis based on the provided material.
+
