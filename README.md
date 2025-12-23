@@ -32,13 +32,30 @@ various electrical and performance parameters.
 ### Methodology
 - Used a FinFET inverter SPICE deck
 - Modified **channel width (W)** and **channel length (L)** of:
-  - n-FinFET
-  - p-FinFET
+  - n-FinFET, having Nfin = 14
+  - p-FinFET, having Pfin = 12
 - Performed DC and AC simulations to evaluate inverter behavior
+
+### FINFET based Inverter spice deck
+```
+**.subckt inverter_vtc
+Xpfet1 nfet_out nfet_in vdd vdd asap_7nm_pfet l=7e-009 nfin=12
+Xnfet1 nfet_out nfet_in GND GND asap_7nm_nfet l=7e-009 nfin=14
+V1 nfet_in GND pulse(0 0.7 20p 10p 10p 20p 500p 1)
+V2 vdd GND 0.7
+```
 
 ### Parameters Analyzed
 - Voltage Transfer Characteristics (VTC)
   ![Inverter VTC](/images/Inverter_VTC.png)
+  ```
+.subckt inverter_vtc
+Xpfet1 nfet_out nfet_in vdd vdd asap_7nm_pfet l=7e-009 nfin=12
+Xnfet1 nfet_out nfet_in GND GND asap_7nm_nfet l=7e-009 nfin=14
+V1 nfet_in GND pulse(0 0.7 20p 10p 10p 20p 500p 1)
+V2 vdd GND 0.7
+```
+
 - Drain current (Id)
 - Power consumption
 - Propagation delay
