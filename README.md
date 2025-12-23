@@ -360,6 +360,7 @@ meas tran tstartup WHEN v(vref)=0.99*vref_final RISE=1
 ```
 ![Startup Time](Images/Startup_time_125C.png)
 
+- Line regulation is observed at 0.8V at 27C
 Spice Deck for Line regulation
 ```
 * Measure Vref at endpoints
